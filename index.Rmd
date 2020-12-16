@@ -23,9 +23,9 @@ tutorial_options(exercise.timelimit = 60)
 
 ## Welcome
 
-In this tutorial, you will learn go over some of the basic syntax of R. We will look at how to run code, use functions, create objects and produce results.
+In this tutorial, you will learn go over some of the basic syntax of R. We will look at how to run code, use functions, create objects and produce output.
 
-The topics covered are:
+The topics we will cover in this session are:
 
 * Using R for Calculations
 * Objects in R
@@ -38,12 +38,16 @@ The topics covered are:
 
 Feel free to complete this workbook at your own pace, to suit your own style. If you want to split your time across multiple sessions the workbook will remember your progress and let you pick up where you left off, providing you are not working in your internet browser's 'incognito mode' and don't delete your browsing history. If you want to reset all of your progress there is a "start over" button in the bottom left corner which will reset all of progress made so far. You can also use your browser to resize the font, or manually resize the window if you want to make the text bigger or smaller. 
 
-
 The intention is for this course to be accessible to people who may not have ever used any programming languages before. Although, since you have made it this far, we are assuming that you are interested in doing so! We also will assume some basic knowledge of data and simple statistical methods.
 
-There are a *lot* of 'introduction' to R courses which start with going in depth into data structures and lots of different syntax of R coding. This can be useful, but is often fairly overwhelming to a newcomer to R, and programming, since it can seem like this is not at all applicable to why you are learning R in the first place - to work with your own data. It's a bit like learning the details of how a car engine works, when all you really need to know is how to drive it. So within this introduction session we will touch on lots of different key topics fairly briefly, so that we can then move on to some more interesting, and hopefully relatable, content. However, if you are interested in going into more detail, particularly if you are coming to R having learnt other programming languages before, then the resources section at the end of this tutorial has some links for you to learn more.   
+There are a *lot* of 'introduction' to R courses which start out with going in depth into data structures and lots of different syntax of R coding. 
+This can be useful, but is often fairly overwhelming to a newcomer to R, and programming, since it can seem like this is not at all applicable to why you are learning R in the first place - usually to work with your own data. It's a bit like learning the details of how a car engine works, when all you really need to know is how to drive it. 
 
-These tutorials do not require you to install R or RStudio on your computer just yet. All the interacting with R for the first few sessions will take place through this workbook format.
+Within this introduction session we will touch on lots of different key topics fairly briefly, so that we can then move on to some more interesting, and hopefully relatable, content. However, if you are interested in going into more detail, particularly if you are coming to R having learnt other programming languages before, then the resources section at the end of this tutorial has some links for you to learn more.   
+
+These tutorials *do not* require you to install R or RStudio on your computer just yet. All the interacting with R for the first few sessions will take place through this workbook format.
+
+Like this:
 
 ```{r twotwo, exercise = TRUE}
 2+2
@@ -55,16 +59,14 @@ If you press the "Run Code" button in the top right, it will run your code and s
 
 Unless you see a *QUESTION* or *EXERCISE* marked above the code chunk, you won't need to modify what has already been written in the box. However, within these chunks of code you can try anything you like - don't just feel constrained by what the question says. If you want to try something to see what happens - then do! You can always press the 'Start Over' button within an individual chunk to return it to its original state.
 
-And remember, please contact us through the course website if you have problems or questions or become stuck at any point.
-
 ## Using R for Calculations
 
-We have seen that R can do `2+2` but more generally at it's simplest level R can be used like a calculator, using the `+`,`-`,`*`,`/` and `^` symbols for addition, subtraction, multiplication, division and raising to the power of. 
+We have seen that R can do `2+2`. More generally, at it's simplest level, R can be used as a calculator, using the `+`,`-`,`*`,`/` and `^` symbols for addition `+`, subtraction `-`, multiplication `*`, division `/` and raising to the power of `^`. 
 
 We can even submit multiple equations all at once for R to evaluate.
 
 ```{r twothree, exercise = TRUE}
-2+2
+1+2
 3*4
 5-6
 7/8
@@ -72,34 +74,48 @@ We can even submit multiple equations all at once for R to evaluate.
 ```
 Notice that that this provides 5 lines of output, where each piece of output has a [1] next to it. This is because these are 5 separate commands to R (hence 5 lines of output), each with 1 piece of output (hence the [1]). Later we will see examples where a single call to R has multiple pieces of output.
 
-Unlike in other programming languages we do not need to use a separator between multiple different commands, or explicitly include a written "run" command. As long as we have a completed R command on a single line, then a new line will denote a new command.
+Unlike in other programming languages we do not need to use a separator between multiple different commands, or explicitly include a written "run" command. As long as we have a *complete* R command on a single line, then R will run the command when it reaches the end of line. And then a new line in the code will denote a new command.
 
-But if we have an incomplete command then R will look to complete in on the next line. For example
+But what if we have an incomplete line? For example
 ```{r twtwotwo, exercise = TRUE}
 2+
   2
 ```
 
-It's not a good idea to write code like this though!
+This is still OK! Because at the end of the first line R did not see something that was complete, it moved to the next line before running the code.
+
+It's not a good idea to write code like this though! Although there will come times when you have to write a long command, and it can be useful to split across multiple lines.
 
 
 You can combine together calculations in exactly the same way that you would with a scientific calculator.
 
 ```{r twothree2, exercise = TRUE}
 
-(2*2)+(755-3*2)^2
+(2+2)*4/9
 ```
 
-Always be careful with your placement of brackets, even if you don't get errors always check that they have been placed correctly to match what you intend, and that any brackets you open have been closed. It's such a small issue which can cause some very large problems. 
+Be careful with your placement of brackets! Not all errors in R will cause error messages. Brackets can be a big cause of this. Always check that they have been placed correctly to match what you intend, and that any brackets you open have been closed. It's such a small issue which can cause some very large problems. For example - you could easily have written the formulae from the previous chunk in a number of different ways:
+
+```{r, twothree3, exercise = TRUE}
+(2+2)*4/9
+
+2+2*4/9
+
+(2+2*4)/9
+```
+
+So be very careful with checking you are asking for exactly what you want!
 
 
-## Objects in R
+## Creating objects in R
 
-But the real power of R is not really in just replicating what you can do with a Casio FX83! R is often referred to as an 'object oriented programming language'. That means nearly everything we do in R requires creating, manipulating and processing objects. Objects in R could be datasets, individual numbers or sequences of numbers, formulae, statistical models, pieces of text, plots, images or even maps.
+The real power of R is not really in just replicating what you can do with a Casio FX83! R is often referred to as an 'object oriented programming language'. That means nearly everything we do in R requires creating, manipulating and processing *objects*.
 
-To create an object we need to assign a name to an R command. `<-` is the 'assignment' operator in R used to create objects, and the general usage is `USERDEFINEDNAME <- COMMAND` - before the `<-` we set the name we want for the object, after the `<-` we give the R commands that will create the object. It is the result of the R commands which are stored in the object, not the command itself.
+Within R 'objects' can be quite a lot of different things: datasets, individual numbers or sequences of numbers, formulae, statistical models, pieces of text, plots, images or even maps.
 
-So let's try assigning the result of 2+2 to a new object called x:
+To create an object we need to assign a name to an R command. `<-` is the 'assignment' operator in R used to create objects, and the general usage is `Object.Name <- COMMAND` - before the `<-` we set the name we want for the object, after the `<-` we give the R commands that will create the object. It is the result of the R commands which are stored in the object, not the command itself.
+
+So let's try assigning the result of 2+2 to a new object called `x`:
 
 ```{r twofour, exercise=TRUE}
 x<-2+2
@@ -121,20 +137,43 @@ We can give R objects any name we want to - as long as we follow some few rules:
 3. Only standard English alphanumeric characters - no accents or non-English alphabets  
 4. Names can include numbers but can't start with numbers  
 
-`sjkfjhskjdhsajsfgldsjghajfhljhgsdlk` is a perfectly valid name, but really stupid - we want our names to be short, clear and memorable
+`sjkfjhskjdhsajsfgldsjghajfhljhgsdlk` is a perfectly valid name we could use, but it would be really stupid. We want our names to be short, clear and memorable
 
 Below are examples of invalid names. We will get errors when we run them:
+```{r spaces2,  exercise=TRUE}
+two+two<-2+2
+```
+
 ```{r spaces,  exercise=TRUE}
 two plus two<-2+2
 ```
-
-```{r spaces2,  exercise=TRUE}
-2+2<-2+2
+```{r spaces,  exercise=TRUE}
+2plus2<-2+2
 ```
+The usual error we see when assigning a bad name is "unexpected symbol". But the first example here gives a slightly different error. Because the `+` character has special meaning in R then it is trying to evaluate this code as if it is an addition of `two` and `two`, so we get a an error telling us `two` does not exist.
 
-This is because we have included spaces in our name, or used forbidden characters.
+## Errors
 
-And once we have created objects - we can apply mathematical operations on them as well. For example, let's say that we are applying the Pythagoras Theorem - $x^2 + y^2 = z^2$. We can create objects `x` and `y` and then write the code to solve the equation based on the values that we set to them. 
+When you come across errors in your code (and you will) the first thing to do is to check carefully what you have submitted. Error messages in R can be a little bit cryptic to decipher, so need a little bit of practice and trial and error to help negotiate. The first things to do are to check carefully for any clues in the error message - it might help point to the specific part of the code where you made a mistake.
+
+A key one to remember is that R case sensitive - try running this:
+
+```{r cases,  exercise=TRUE}
+x<-2+2
+X
+```
+We do have an object called x but we don't have anything called X. Capitalisation and spelling is vital.
+
+Common sources of errors are things like having brackets in incorrect places; spelling mistakes; misusing or misplacing quotation marks; or using the wrong case (B.S.Q.C). It's also likely you may find problems with sequencing of commands - especially making you sure you loading data or packages before you need to use them. You cannot use functions from additional packages without explicitly loading these packages first in sequence. Similarly we cannot use any data called `x` until after we have created a dataset called `x`. 
+
+Its also a good idea to avoid names which are used elsewhere in R for functions as this can cause problems with duplication and/or confusion. 
+R is big so there are lots of names used for things, so sometimes it happens but try to avoid as much as possible.
+
+Check your code very carefully for these small details if you run into problems - especially when just starting out, and conducting fairly simple operations, it's very likely you will have made one of these errors. Over time you will make less of these errors, and also find it easier to diagnose the problem when you do, but it can be a little frustrating at first for some users.
+
+## Using objects
+
+Once we have created objects - we can apply mathematical operations on them as well. For example, let's say that we are applying the Pythagoras Theorem - $x^2 + y^2 = z^2$. We want to easily write some code to solve this to give us the hypotenuse of a triangle, `z`,  for any inputs of the other two side lengths, `x` and `y`. We can create objects `x` and `y` and then write the code to solve the equation based on the values that we set to them. 
 
 ```{r py1,  exercise=TRUE}
 x<-4
@@ -155,7 +194,7 @@ y<-6
 sqrt(x^2 +y^2)
 ```
 
-We are using the function `sqrt()` to obtain the square root of the numbers within the brackets. Other useful mathematic functions like `sin()`,`cos()`,`tan()`,`log()`,`log10()` are all built into R. Note than `log()` refers to the natural logarithm.
+We are using the mathematical function `sqrt()` in this code to obtain the square root of the numbers within the brackets. Again, this is just like a calculator. Other useful mathematic functions like `sin()`,`cos()`,`tan()`,`log()`,`log10()` are all built into R. Note than `log()` refers to the natural logarithm.
 
 ```{r classy, exercise=TRUE}
 
@@ -167,26 +206,6 @@ log10(100)
 
 ```
 
-
-
-## Errors
-
-When you come across errors in your code (and you will) the first thing to do is to check carefully what you have submitted. Error messages in R can be a little bit cryptic to decipher, so need a little bit of practice and trial and error to help negotiate. The first things to do are to check carefully for any clues in the error message - it might help point to the specific part of the code where you made a mistake.
-
-A key one to remember is that R case sensitive - try running this:
-
-```{r cases,  exercise=TRUE}
-x<-2+2
-X
-```
-We do have an object called x but we don't have anything called X. Capitalisation and spelling is vital.
-
-Common sources of errors are things like having brackets in incorrect places; spelling mistakes; misusing or misplacing quotation marks; or using the wrong case (B.S.Q.C). It's also likely you may find problems with sequencing of commands - especially making you sure you loading data or packages before you need to use them. You cannot use functions from additional packages without explicitly loading these packages first in sequence. Similarly we cannot use any data called `x` until after we have created a dataset called `x`. 
-
-Its also a good idea to avoid names which are used elsewhere in R for functions as this can cause problems with duplication and/or confusion. 
-R is big so there are lots of names used for things, so sometimes it happens but try to avoid as much as possible.
-
-Check your code very carefully for these small details if you run into problems - especially when just starting out, and conducting fairly simple operations, it's very likely you will have made one of these errors. Over time you will make less of these errors, and also find it easier to diagnose the problem when you do, but it can be a little frustrating at first for some users.
 
 ## (c)oncatenation of values
 
