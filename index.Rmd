@@ -209,13 +209,13 @@ log10(100)
 
 ## (c)oncatenation of values
 
-An extremely common function you will see in R is `c()`. This is a way of *c*ombining (or '*c*oncatenating') multiple items together into a single object, which is called a *vector*.  If we ever need to do any sort of operation on more than one single number, then we will need to be using vectors. So, using `c()`, we can create a vector of the test scores, separated by commas, and assign this to be the object `y`. 
+An extremely common function you will see in R is `c()`. This is a way of *c*ombining, or '*c*oncatenating', multiple items together into a single object, which is called a *vector*.  If we ever need to do any sort of operation on more than one single number, then we will need to be using vectors. So, using `c()`, we can create a vector of the test scores, separated by commas, and assign this to be the object `y`. 
 
 ```{r vector,  exercise=TRUE}
 y<-c(4,5,6,7,800)
 y
 ```
-Remember that if we don't ask for y to be returned, we would not see any output. When coding for real, we don't often ask R to just print out our objects like this, but whilst learning it is good to remind ourselves of how this works. 
+Remember that if we don't ask for `y` to be returned, we would not see any output. When coding for real, we don't often ask R to just print out our objects like this, but whilst learning it is good to remind ourselves of how this works. 
 
 
 We can then use this vector of numbers for mathematical operations. For example, we could add 2 to all of those numbers
@@ -224,9 +224,9 @@ We can then use this vector of numbers for mathematical operations. For example,
 y<-c(4,5,6,7,800)
 y+2
 ```
-R has taken each of the values from `y` and applied them to the formula we gave it. So the first output refers to the first value of `y`.
+R has taken each of the values from `y` and applied them to the formula we gave it. So the first output refers to the first value of `y` and so on.
 
-More usefully, if we wanted to continue with the pythagoras example, lets say these are hypothetical lengths of one side of a triangle. With the other side (`x`) fixed at 4 and we could then see how long the hypotenuse would be for a range of different `y` values.
+More usefully, we could continue with the Pythagoras example from before. Let's say these are hypothetical lengths of one side of a triangle. With the other side (`x`) fixed at 4 and we could then see how long the hypotenuse would be for a range of different `y` values.
 
 ```{r py2,  exercise=TRUE}
 x<-4
@@ -235,7 +235,9 @@ y<-c(4,5,6,7,800)
 sqrt(x^2 +y^2)
 ```
 
-We can only do this sort of mathematical procedure if  
+Now we have solved the hypotenuse length for 4 different triangles!
+
+But we should only do this sort of mathematical procedure if  
 a) `x` and `y` are both the same length, in which case the first output will be first element of `x` used with the first element of `y`, and so on for each corresponding pair.  
 
 b) either `x` or `y` are of length 1. Then we have a constant for one of our values and the same operation is carried out for all elements of the longer object.  
@@ -247,19 +249,21 @@ For example if we tried again with `x=c(4,5)` we would see a warning message:
 
 ```{r py3,  exercise=TRUE}
 x<-c(4,5)
-y<-c(4,5,6,7,8)
+y<-c(4,5,6,7,800)
 y
 
 sqrt(x^2 +y^2)
 ```
 
 
-In this instance what R has done is extended `x` by repeating it to match the length of `y`, but it has also given us a warning message at the same time. 
+In this instance what R has done is extended `x` by repeating it to match the length of `y`, but it has also given us a warning message at the same time: `longer object length is not a multiple of shorter object length`. 
 
-Pay close attention whenever you receive warning messages. These messages are slightly different from errors. Errors appear when R cannot evaluate the command you have written, either because the command you have written is incorrect or because the operation you are asking R to do is impossible. Warning messages appear when R is able to evaluate the code you submitted but suspects that that your code is not doing what you think it’s doing. R therefore gives a warning to encourage you to double check that you understand what your code is doing  Sometimes these messages are indeed harmless, but sometimes they can mean what you may have made a mistake in the logic, or the data, behind what you were trying to do. In this case we would have avoided the warning message, but obtained the same output, by setting `x` as `x<-c(4,5,4,5,4)`.
+Pay close attention whenever you receive warning messages. These messages are slightly different from errors. Errors appear when R cannot evaluate the command you have written, either because the command you have written is incorrect or because the operation you are asking R to do is impossible. Warning messages appear when R is able to evaluate the code you submitted but suspects that that your code is not doing what you think it’s doing. R therefore gives a warning to encourage you to double check that you understand what your code is doing  Sometimes these messages are indeed harmless, but sometimes they can mean what you may have made a mistake in the logic, or the data, behind what you were trying to do. 
+
+In this case we would have avoided the warning message, but obtained the same output, by setting `x` as `x<-c(4,5,4,5,4)`. This would be a much better option to achieve the same result, as for someone reading our code it would be clearer that what have done is what we wanted.
 
 
-Vectors need to contain items which are compatible with each other - if we have a vector of numbers all the entries need to be numbers. If we have a vector of text, all the entries need to be text. Look what happens when we provide R with a mixture of numbers and characters
+Vectors consist of individual items which are all compatible with each other. If we have a vector of numbers all the entries need to be numbers. This is a `numeric` vector. If we have a vector of text, all the entries need to be text this is called a `character` vector. Look what happens when we provide R with a mixture of numbers and characters
 
 ```{r mismatch,  exercise=TRUE}
 x<-c(4,5)
@@ -272,7 +276,7 @@ class(y)
 
 ```
 
-`y` is a character vector - and R has converted the `4` and `6` into characters rather than numbers - we can tell this from the quotation marks around the numbers in the output or by checking the result of `class(y)`. This means if we try to use this vector in our example we will run into an error.
+`y` is a character vector - and R has converted the `4` and `6` into characters rather than numbers - we can tell this from the quotation marks `""` around the numbers in the output or by checking the result of `class(y)`. This means if we try to use this vector in our example we will run into an error.
 
 
 ```{r py4,  exercise=TRUE}
@@ -282,24 +286,26 @@ y<-c(4,"five",6,"seven")
 sqrt(x^2 +y^2)
 ```
 
-This error is telling us that `y^2` is non-numeric. Therefore it cannot do any mathematical calculations based on y - even for the elements which we entered as numbers originally.
+This error is telling us that `y^2` is non-numeric. Therefore it cannot do any mathematical calculations based on y - even for those elements within y which which we entered as numbers originally. If anything in a vector is not a number, this turns everything within that vector into a character.
 
 
 ## Data 
 
-Datasets in R are essentially a combination of vectors. If we think about datasets we usually have a number of different columns, which we might refer to as variables. Each column will be of its own class (e.g. "Name" would be a character, "Age" would be a number, "Date of Birth" would be a date). And each of these columns has the same number of entries. So we could create a dataset in R by manually entering each of our columns using the `c()` function and then combining our columns together. This is not a very practical option! We will learn more about importing data from Excel, and other formats, later in the course. For the first few sessions we will use pre-imported datasets.
+More often than not we don't want to work with just vectors, but instead we want to work with data. Datasets are essentially a combination of multiple vectors. Outside of R we would probably refer to these as 'columns' or 'variables' within the data. 
 
-When working with data in R, we need to assign our data to be an object. Depending on how you read in data it might be stored as either a 'data frame' or a 'tibble'. The 'data frame' is an older format which is the standard for most uses; the tibble is a much newer and more flexible format which is gaining in popularity and slowly being adopted within R as the default. But the basic functionality of the two is the same - we are storing data in a single object, with one column for each variable in our dataset. As a new user, you do not need to worry too much about the differences between these two formats, nearly all functions work the same with both, and both are encountered frequently in the 'real world' of R users, so you will see data in both formats during this course.
+Each column will be of its own class (e.g. "Name" would be a character, "Age" would be a number, "Date of Birth" would be a date). And each of these columns has the same number of entries. We could create a dataset in R by manually entering each of our columns using the `c()` function and then combining our columns together. This is not a very practical option! We will learn more about importing data from Excel, and other formats later in this course. For the first few modules we will be using pre-imported datasets to practice with.
+
+When working with data in R, we need to assign our data to be an object. Depending on how you read in data it will probably be stored as a 'data frame', although there are other formats for working with data in R as well.
 
 
-For now we will look at the built in dataset `airquality` which has daily air quality measurements taken from New York in 1973.
+Lets take a look the built in dataset `airquality` which has daily air quality measurements taken from New York in 1973. The contents of this data are embedded below.
 
 
 ```{r,echo=FALSE}
 DT::datatable(airquality)
 ```
 
-You can see this data has columns for Ozone, Solar Radiation, Wind Speed, Temperature, Month and Day
+You can see this data has columns for Ozone (`Ozone`), Solar Radiation (`Solar.R`), Wind Speed (`Wind`), Temperature (`Temp`), Month (`Month`) and Day (`Day`).
 
 As with any object in R - to look at it in the output window we we need to refer to it by its name
 ```{r aq,  exercise=TRUE}
@@ -308,7 +314,8 @@ airquality
 
 Running the name of the object simply prints out the object contents.
 
-If we just want to look at one of the columns - e.g. temperature - then we use the $ symbol to separate the name of the data from the name of the column.
+If we just want to look at one of the columns individually - e.g. temperature - then we use the `$` symbol to separate the name of the data from the name of the column.
+
 So `airquality$Temp` tells R to access the column `Temp` from within the dataset `airquality`
 ```{r aq2,  exercise=TRUE}
 airquality$Temp
@@ -322,18 +329,23 @@ Just looking at the column by itself this is not especially useful, but we need 
 A function is an object that applies a particular operation. You can do basic maths in R without functions (like 2+2) but to do anything more fun or useful we will need functions. The name of the function is always followed by brackets `()`, and inside the brackets we tell R how to apply the function or what to apply the function on. 
 
 
-We've already looked at the `c` function and the `class` function - we can use this with any named object in R - in this case it will tell us we have a data frame.
+We've already seen some functions already - the `c` function, for combining items together, and the `class` function, to show the class of an object.
+
+Let's see what happens when we apply the functions on our data:
 
 ```{r clss,  exercise=TRUE}
 class(airquality)
 ```
+That makes sense.
 
-But if we tried to use `c()` with the data frame, this is almost certainly not going to be useful, as it effectively 'takes' apart our data frame.
+But what if we tried to use `c()` with the data frame?
 ```{r caq,  exercise=TRUE}
 c(airquality)
 ```
 
-Another useful function to know, that will work with nearly all types of object, is the function `summary()`. Let's use it on the airquality dataset:
+This is almost certainly not going to be useful, as it effectively 'takes' apart our data frame and shows us each column one by one. 
+
+A useful function to know is the function `summary()`. Let's use it on the `airquality` dataset:
 
 ```{r cc, exercise=TRUE}
 summary(airquality)
@@ -343,14 +355,14 @@ We use the function name `summary` and then inside the brackets we tell it what 
 
 You can see that this function provides summary statistics for all of the columns in our dataset
 
-R is an 'object-oriented programming language'. This means that the same function may do slightly different things, depending on what sort of object it is applied on. We can already see this somewhat from the output of `summary(airquality)`. The Month column shows us frequencies for each month because this column is being treated as a categorical variable (the 'factor' class in R); the other columns provide summary statistics because they are 'numeric' variables.
-For example we can also run the function `summary` on just the Temperature column, to obtain summary statistics for just this column.
+R is an 'object-oriented programming language'. This means that the same function may do slightly different things, depending on what sort of object it is applied on. We can already see this somewhat from the output of `summary(airquality)`. The `Month` column shows us frequencies for each month. This column is being treated as a categorical variable (the 'factor' class in R); the other columns provide summary statistics (mean, median, min, max and the lower and upper quartiles). because they are 'numeric' variables.
+For example we can also run the function `summary` on just the `Temp` column, and we will see summary statistics for just this column.
 
 ```{r sum2, exercise=TRUE}
 summary(airquality$Temp)
 ```
 
-The individual summary statistic functions also generally have sensible names, and work in a similar way:
+The individual summary statistic functions also generally have sensible names, `mean`, `median`, `min` and `max`, and work in a similar way:
 
 ```{r sum3, exercise=TRUE}
 mean(airquality$Temp)
@@ -358,41 +370,6 @@ min(airquality$Temp)
 max(airquality$Temp)
 median(airquality$Temp)
 ```
-
-## Missing values
-
-When looking at the data and running the summary function you may have noticed that there are missing values within some columns of this dataset. Missing values are coded as `NA` within R. This wasn't a problem with the `summary` function, as one of the things it summarises is how many missing values exist within the data. But look what happens with the mean, min, max and median functions.
-
-```{r sum5, exercise=TRUE}
-mean(airquality$Ozone)
-min(airquality$Ozone)
-max(airquality$Ozone)
-median(airquality$Ozone)
-```
-
-If there are any missing values, then by default these functions tells us that they cannot determine the value of the mean, median, max and median. Unfortunately, in R different functions handle missing values in different ways. Some, like `summary` automatically remove missing values and calculate results ignoring those values, others like `mean` need to explicitly be told how to handle missing values. For `mean` to calculate the mean ignoring the missing values we need to an additional argument `na.rm=TRUE`, telling R to remove missing (NA) values.
-
-```{r sum6, exercise=TRUE}
-mean(airquality$Ozone,na.rm=TRUE)
-```
-
-
-
-If we tried to use the mean function on the month column, we would see some slightly strange results:
-```{r sum7, exercise=TRUE}
-mean(airquality$Month)
-```
-
-Here we see another example of a warning message - because the format of the month is not 'numeric' (a number) or 'logical' (a class for a binary column which can only have values of `TRUE` or `FALSE`), we see the mean of month is NA. There was no error in the code, but R is warning us that it thinks it is a bit strange that we want the mean of a 'factor' (categorical) column as it cannot do this. We have to think carefully about making sure we are asking R to do something sensible with the data we have, and whether our data is an appropriate format. For example if the months were coded as numbers (4 for April, 5 for May and so on) - then we could have calculated a mean value. Just because R lets you do something, doesn't mean this is necessarily something that is good, correct or useful to our actual analysis.
-
-*Question* Predict what you would then expect to see from the following line of code before pressing run.
-
-```{r median,exercise=TRUE}
-median(airquality$Month)
-```
-
-Sometimes things in R can be a little inconsistent! This is one of the reasons why a large number of people use functions and packages in R from what is known as the 'tidyverse', rather than using 'Base' R (which is R in the form it comes when it is downloaded). https://www.tidyverse.org/  The objective of the tidyverse is for all components to share common design, philosophy, grammar and data structures, to avoid inconsistencies like in the previous example. A large proportion of this course will follow the tidyverse functions and styles, particularly the upcoming sessions on graphics and data manipulation. 
-
 
 Some functions require more than one *argument*. The arguments are the different components we tell the function - in the case of `mean(airquality$Temp)` the argument is the variable we want to calculate the mean of. Most functions have a mixture of required arguments and optional arguments which if not specified will revert to a default setting. Arguments have names, although we dont always have to use them, particularly with simple functions where we only use one argument. With the `mean` function we could have obtained identical output by using the command `mean(x=airquality$Temp)` because the name of the argument for the column we wish to calculate the mean of is `x`.
 To obtain the 1st and 3rd quartiles, as in the `summary` function, we need to use the `quantile` function. As well as variable we wish to obtain the quantile from, we need to tell it an argument for `probs` to tell it which quantile we want to calculate. So for the lower quantile, this is the 25% point. R only ever deals with decimal numbers rather than percentages so we need to set this to 0.25.
@@ -406,6 +383,54 @@ To obtain both the upper and lower quantiles, we can use the `c()` function with
 ```{r quant2, exercise=TRUE}
 quantile(airquality$Temp,probs = c(0.25,0.75))
 ```
+
+## Missing values
+
+When looking at the data and running the summary function you may have noticed that there are missing values within some columns of this dataset. Missing values are coded as `NA` within R. You may have already seen from previous outputs, but the `Ozone` column from the `airquality` data has 37 missing values. This isn't a problem with the `summary` function, as one of the things it summarises is how many missing values exist within the data.
+
+```{r sum50, exercise=TRUE}
+summary(airquality$Ozone)
+
+```
+But look what happens with the mean, min, max and median functions.
+
+```{r sum5, exercise=TRUE}
+mean(airquality$Ozone)
+min(airquality$Ozone)
+max(airquality$Ozone)
+median(airquality$Ozone)
+```
+
+If there are any missing values, then by default these functions tells us that they cannot determine the value of the mean, median, max and median. 
+Unfortunately, in R different functions handle missing values in different ways, so it can sometimes feel a bit inconsistent. Some functions, like `summary` automatically remove missing values and calculate results ignoring those values. Other functions, like `mean`, need to explicitly be told how to handle missing values. For `mean` to calculate the mean ignoring the missing values we need to an additional argument `na.rm=TRUE`, telling R to remove missing (NA) values.
+
+```{r sum6, exercise=TRUE}
+mean(airquality$Ozone,na.rm=TRUE)
+```
+
+
+## Applying functions incorrectly
+
+If we tried to use the mean function on the `Month` column, we would see some slightly strange results:
+```{r sum7, exercise=TRUE}
+mean(airquality$Month)
+```
+
+Here we see another example of a warning message - because the format of the month is not 'numeric' (a number) or 'logical' (a class for a binary column which can only have values of `TRUE` or `FALSE`), we see the mean of month is NA. There was no error in the code, but R is warning us that it thinks it is a bit strange that we want the mean of a 'factor' (categorical) column as it cannot do this. We have to think carefully about making sure we are asking R to do something sensible with the data we have, and whether our data is an appropriate format. For example if the months were coded as numbers (4 for April, 5 for May and so on) - then we could have calculated a mean value. Just because R lets you do something, doesn't mean this is necessarily something that is good, correct or useful to our actual analysis.
+
+*Question* Predict what you would then expect to see from the following line of code before pressing run.
+
+```{r median,exercise=TRUE}
+median(airquality$Month)
+```
+
+Sometimes things in R can be a little inconsistent! 
+
+This is one of the reasons why a large number of people use functions and packages in R from what is known as the 'tidyverse', rather than using 'Base' R (which is R in the form it comes when it is downloaded). 
+
+The objective of the tidyverse is for all components to share common design, philosophy, grammar and data structures, to avoid inconsistencies like in the previous example. A large proportion of this course will follow the tidyverse functions and styles, particularly the upcoming sessions on graphics using `ggplot2` and data manipulation using `dplyr`.  
+
+We will learn more about this as the course progresses, but if you are taking this course having previously learnt how to use R in a slightly different way then do not worry - the way you learnt is (probably) correct and this way is also correct. There are lots of different ways to do the same thing in R; the most important thing is to focus on whether you are able to get the output you want.
 
 ## Help
 
@@ -451,5 +476,154 @@ Chapters 1 & 2 were suggested as pre-course material, so also worth a review. We
 Hard:
 <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf" target="_blank">The 'official' Introduction to R </a>. This goes into a lot of technical detail about different object types, and internal structures within R. More or less everything that you might possibly need to know is covered in this, but lots of it you don't need to know or remember to start your journey into R whilst much of what is mentioned has largely been superseded with useful add on packages.
 
+## Exercises
+
+## Quiz
+
+*Question 1*
+```{r Q1, echo=FALSE}
+question("Which of the following is the definition of an object in R",
+  answer("An object is a structure which could contain values, data or plots",correct=TRUE),
+  answer("An object is a statement used to perform a particular task",message = "This is a 'function'"),
+  answer("An object provides the commands used in R",message = "This is a 'script' or the 'syntax'"),
+         allow_retry=TRUE)
+
+```
+
+
+
+*Question 2*
+
+```{r Q2, echo=FALSE}
+question("Select all of the following which could be a valid object name for some data about earthquakes in R",
+  answer("EarthquakeData",correct = TRUE),
+   answer("earthquakedata",correct = TRUE),
+  answer("Earthquake Data",message="No spaces allowed."),
+  answer("uRtHkWaKeS",correct = TRUE,message="Just because something is valid, does not mean it is a good idea!"),
+  answer("2020earthquakes",message="Cannot start with a number."),
+  answer("2020_earthquakes",message="Cannot start with a number"),
+  answer("Earthquakes_2020",correct = TRUE),
+  answer("d1",correct = TRUE),
+         allow_retry=TRUE)
+
+```
+
+
+*Question 3*
+```{r Q31, echo=FALSE}
+question("Which of the following statements is correct",
+  answer("Data in R cannot contain any missing values"),
+  answer("You cannot calculate the mean of a variable containing missing values in R"),
+  answer("Missing values in R are coded as -99",message="Missing values are coded as NA"),
+  answer("The na.rm=TRUE argument is one way of handling missing values within some functions",correct = TRUE),
+         allow_retry=TRUE)
+
+```
+
+
+
+
+
+There is a dataset in built into R called `quakes`. This data shows the latitude, longitude, depth, magnitude of earthquakes occuring in the ocean around Fiji since 1964, as well as the number of different stations reporting the earthquake.
+
+```{r,echo=FALSE}
+DT::datatable(quakes)
+```
+
+*Question 4*
+
+```{r Q3, echo=FALSE}
+question("If I wanted to see just the magnitude values of this data, what R command should I run?",
+   answer("quakes[mag]",message="Square brackets are important in R; but we haven't learnt about them yet, and this is not what they do!"),
+   answer("quakes$mag",correct = TRUE),
+  answer("column(quakes,mag)",message = "We have not learnt about a function called column(), and this is not what it does"),
+  answer("mag(quakes)",message="There is no function called mag()"),
+         allow_retry=TRUE)
+         
+         
+```
+*Question 5* 
+
+```{r,echo=FALSE}
+summary(quakes)
+```
+
+
  
+```{r Q4, echo=FALSE}
+
+question("Which command has given me the output shown above?",
+   answer("c(quakes)",message = "This would deconstruct the data frame rather than provide summary statistics"),
+   answer("mean(quakes)",message = "This would give an NA result. quakes is of class data.frame, so we cant calculate a mean"),
+  answer("summary(quakes)",correct = TRUE),
+  answer("stats(quakes)",message = "This is not a commonly used function"),
+         allow_retry=TRUE)
+```
+
+
+
+
+## Exercises
+
+### Question 1:
+I am trying to use R as a calculator, and am receiving an error. Can you spot my error and update the code?
+```{r ex1, exercise=TRUE}
+
+(42-5/(88+6)
+
+```
+
+
+### Question 2
+
+This question will use the same earthquakes dataset from the quiz, showing the magnitude of earthquakes occuring in the ocean around Fiji since 1964, as well as the number of different stations reporting the earthquake. This has been loaded into the R sessions as a data frame called `quakes` 
+
+```{r,echo=FALSE}
+DT::datatable(quakes)
+```
+
+
+### Question 2a
+Write a command to determine the largest magnitude (`mag`) earthquake recorded?
+
+```{r ex2, exercise=TRUE}
+
+
+```
+
+### Question 2b
+Write a command to determine the smallest depth (`depth`) below surface that an earthquake was recorded?
+
+```{r ex3, exercise=TRUE}
+
+```
+
+
+### Question 2c
+I would like to obtain the standard deviation of the earthquake magnitude column from the `quakes` dataset. See if you can find the function for standard deviation in R (we have not mentioned it in the course workbook so far) and then apply it to the relevant column
+```{r ex4, exercise=TRUE}
+
+```
+
+
+### Question 3
+I am again using the `airquality` data and I am now interested in looking at the `Solar.R` variable. I know that there can sometimes be very extreme outlying values for this variable, so rather than looking at the minimum and maximum I would instead like to look at the 5th percentile and the 95th percentile. Find these two values using the `quantile` function.
+
+```{r ex3, exercise=TRUE}
+
+```
+
+
+### Question 4:
+A task I am sure you remember from school is to solve a quadratic equation using the formula $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$.
+Write some R code to find the two values of x when $x^2-9x+19=0$ . 
+
+As a reminder, in the quadratic equation formula from this particular example `a` would be 1; `b` would be -9 and `c` would be 19
+
+
+```{r quadratic, exercise=TRUE}
+
+
+
+```
 
