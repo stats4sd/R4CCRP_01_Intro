@@ -147,7 +147,7 @@ two+two<-2+2
 ```{r spaces,  exercise=TRUE}
 two plus two<-2+2
 ```
-```{r spaces,  exercise=TRUE}
+```{r spacesb,  exercise=TRUE}
 2plus2<-2+2
 ```
 The usual error we see when assigning a bad name is "unexpected symbol". But the first example here gives a slightly different error. Because the `+` character has special meaning in R then it is trying to evaluate this code as if it is an addition of `two` and `two`, so we get a an error telling us `two` does not exist.
@@ -594,7 +594,7 @@ Write a command to determine the largest magnitude (`mag`) earthquake recorded?
 ### Question 2b
 Write a command to determine the smallest depth (`depth`) below surface that an earthquake was recorded?
 
-```{r ex3, exercise=TRUE}
+```{r ex22b, exercise=TRUE}
 
 ```
 
