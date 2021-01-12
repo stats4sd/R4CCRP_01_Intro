@@ -23,14 +23,14 @@ tutorial_options(exercise.timelimit = 60)
 
 ## Welcome
 
-In this tutorial, you will learn go over some of the basic syntax of R. We will look at how to run code, use functions, create objects and produce output.
+In this tutorial, you will learn some of the basic syntax of R. We will look at how to run code, use functions, create objects and produce output.
 
 The topics we will cover in this session are:
 
 * Using R for Calculations
 * Objects in R
 * Errors 
-* (c)concatenation of values
+* (c)oncatenation of values
 * Using Data Frames
 * Functions
 * Missing Values
@@ -38,7 +38,7 @@ The topics we will cover in this session are:
 
 Feel free to complete this workbook at your own pace, to suit your own style. If you want to split your time across multiple sessions the workbook will remember your progress and let you pick up where you left off, providing you are not working in your internet browser's 'incognito mode' and don't delete your browsing history. If you want to reset all of your progress there is a "start over" button in the bottom left corner which will reset all of progress made so far. You can also use your browser to resize the font, or manually resize the window if you want to make the text bigger or smaller. 
 
-The intention is for this course to be accessible to people who may not have ever used any programming languages before. Although, since you have made it this far, we are assuming that you are interested in doing so! We also will assume some basic knowledge of data and simple statistical methods.
+The intention is for this course to be accessible to people who may not have ever used any programming languages before. Although, since you have made it this far, we are assuming that you are interested in doing so! We will assume you have some basic knowledge of data and simple statistical methods, but links to other resources will be provided throughout.
 
 There are a *lot* of 'introduction' to R courses which start out with going in depth into data structures and lots of different syntax of R coding. 
 This can be useful, but is often fairly overwhelming to a newcomer to R, and programming, since it can seem like this is not at all applicable to why you are learning R in the first place - usually to work with your own data. It's a bit like learning the details of how a car engine works, when all you really need to know is how to drive it. 
@@ -156,7 +156,7 @@ The usual error we see when assigning a bad name is "unexpected symbol". But the
 
 When you come across errors in your code (and you will) the first thing to do is to check carefully what you have submitted. Error messages in R can be a little bit cryptic to decipher, so need a little bit of practice and trial and error to help negotiate. The first things to do are to check carefully for any clues in the error message - it might help point to the specific part of the code where you made a mistake.
 
-A key one to remember is that R case sensitive - try running this:
+A key one to remember is that R is case sensitive - try running this:
 
 ```{r cases,  exercise=TRUE}
 x<-2+2
@@ -164,10 +164,21 @@ X
 ```
 We do have an object called x but we don't have anything called X. Capitalisation and spelling is vital.
 
-Common sources of errors are things like having brackets in incorrect places; spelling mistakes; misusing or misplacing quotation marks; or using the wrong case (B.S.Q.C). It's also likely you may find problems with sequencing of commands - especially making you sure you loading data or packages before you need to use them. You cannot use functions from additional packages without explicitly loading these packages first in sequence. Similarly we cannot use any data called `x` until after we have created a dataset called `x`. 
+Common sources of errors are things like having brackets in incorrect places; spelling mistakes; misusing or misplacing quotation marks; or using the wrong case (B.S.Q.C). It's also likely you may find problems with sequencing of commands - especially making you sure you load data or packages before you need to use them. You cannot use functions from additional packages without explicitly loading these packages first in sequence. Similarly we cannot use any data called `x` until after we have created a dataset called `x`. 
 
-Its also a good idea to avoid names which are used elsewhere in R for functions as this can cause problems with duplication and/or confusion. 
-R is big so there are lots of names used for things, so sometimes it happens but try to avoid as much as possible.
+It's also a good idea to avoid names which are used elsewhere in R as this can cause problems with duplication and/or confusion. For example - R already has the constant pi (3.14159...) built in as a named object called pi
+
+```{r pi, exercise=TRUE}
+pi
+```
+But if we didn't know that - and we created a new object called pi it would over-write this built in object, which could cause problems of a loss of precision. Particularly if we forgot the decimal digits of pi ourselves and created something incorrect!
+
+
+```{r pi2, exercise=TRUE}
+pi <- 3.1435
+pi
+```
+Now we are in trouble if we want to do any calculations based on pi! R is big so there are lots of names used for things, so sometimes it happens but try to avoid as much as possible.
 
 Check your code very carefully for these small details if you run into problems - especially when just starting out, and conducting fairly simple operations, it's very likely you will have made one of these errors. Over time you will make less of these errors, and also find it easier to diagnose the problem when you do, but it can be a little frustrating at first for some users.
 
@@ -190,6 +201,13 @@ Then, if we ever need to solve the Pythagoras equation again, all we need to do 
 ```{r pythag, exercise=TRUE}
 x<-4
 y<-6
+
+sqrt(x^2 +y^2)
+```
+
+```{r pythag-solution}
+x<-10
+y<-22
 
 sqrt(x^2 +y^2)
 ```
@@ -237,13 +255,12 @@ sqrt(x^2 +y^2)
 
 Now we have solved the hypotenuse length for 4 different triangles!
 
-But we should only do this sort of mathematical procedure if  
-a) `x` and `y` are both the same length, in which case the first output will be first element of `x` used with the first element of `y`, and so on for each corresponding pair.  
+But we should only do this sort of mathematical procedure if    
+* `x` and `y` are both the same length, in which case the first output will be first element of `x` used with the first element of `y`, and so on for each corresponding pair.    
+* Either `x` or `y` are of length 1. Then we have a constant for one of our values and the same operation is carried out for all elements of the longer object.    
 
-b) either `x` or `y` are of length 1. Then we have a constant for one of our values and the same operation is carried out for all elements of the longer object.  
 
-
-For example if we tried again with `x=c(4,5)` we would see a warning message:
+For example if we tried again with `x<-c(4,5)` we would see a warning message:
 
 ### Warnings
 
@@ -258,7 +275,7 @@ sqrt(x^2 +y^2)
 
 In this instance what R has done is extended `x` by repeating it to match the length of `y`, but it has also given us a warning message at the same time: `longer object length is not a multiple of shorter object length`. 
 
-Pay close attention whenever you receive warning messages. These messages are slightly different from errors. Errors appear when R cannot evaluate the command you have written, either because the command you have written is incorrect or because the operation you are asking R to do is impossible. Warning messages appear when R is able to evaluate the code you submitted but suspects that that your code is not doing what you think it’s doing. R therefore gives a warning to encourage you to double check that you understand what your code is doing  Sometimes these messages are indeed harmless, but sometimes they can mean what you may have made a mistake in the logic, or the data, behind what you were trying to do. 
+Pay close attention whenever you receive warning messages. These messages are slightly different from errors. Errors appear when R cannot evaluate the command you have written, either because the command you have written is incorrect or because the operation you are asking R to do is impossible. Warning messages appear when R is able to evaluate the code you submitted but suspects that that your code is not doing what you think it’s doing. R therefore gives a warning to encourage you to double check that you understand what your code is doing  Sometimes these messages are indeed harmless, but sometimes they can mean that you may have made a mistake in the logic, or the data, behind what you were trying to do. 
 
 In this case we would have avoided the warning message, but obtained the same output, by setting `x` as `x<-c(4,5,4,5,4)`. This would be a much better option to achieve the same result, as for someone reading our code it would be clearer that what have done is what we wanted.
 
@@ -267,6 +284,7 @@ Vectors consist of individual items which are all compatible with each other. If
 
 ```{r mismatch,  exercise=TRUE}
 x<-c(4,5)
+x
 class(x)
 
 y<-c(4,"five",6,"seven")
@@ -286,7 +304,7 @@ y<-c(4,"five",6,"seven")
 sqrt(x^2 +y^2)
 ```
 
-This error is telling us that `y^2` is non-numeric. Therefore it cannot do any mathematical calculations based on y - even for those elements within y which which we entered as numbers originally. If anything in a vector is not a number, this turns everything within that vector into a character.
+This error is telling us that `y` is non-numeric. Therefore it cannot do any mathematical calculations based on y - even for those elements within y which which we entered as numbers originally. If anything in a vector is not a number, this turns everything within that vector into a character.
 
 
 ## Data 
@@ -298,7 +316,7 @@ Each column will be of its own class (e.g. "Name" would be a character, "Age" wo
 When working with data in R, we need to assign our data to be an object. Depending on how you read in data it will probably be stored as a 'data frame', although there are other formats for working with data in R as well.
 
 
-Lets take a look the built in dataset `airquality` which has daily air quality measurements taken from New York in 1973. The contents of this data are embedded below.
+Let's take a look at the built in dataset `airquality` which has daily air quality measurements taken from New York in 1973. The contents of this data are embedded below.
 
 
 ```{r,echo=FALSE}
@@ -329,7 +347,7 @@ Just looking at the column by itself this is not especially useful, but we need 
 A function is an object that applies a particular operation. You can do basic maths in R without functions (like 2+2) but to do anything more fun or useful we will need functions. The name of the function is always followed by brackets `()`, and inside the brackets we tell R how to apply the function or what to apply the function on. 
 
 
-We've already seen some functions already - the `c` function, for combining items together, and the `class` function, to show the class of an object.
+We've seen some functions already - the `c` function, for combining items together, and the `class` function, to show the class of an object. We've also talked about some of the mathematical functions - like `sqrt()` and `sin()`.
 
 Let's see what happens when we apply the functions on our data:
 
@@ -401,8 +419,8 @@ max(airquality$Ozone)
 median(airquality$Ozone)
 ```
 
-If there are any missing values, then by default these functions tells us that they cannot determine the value of the mean, median, max and median. 
-Unfortunately, in R different functions handle missing values in different ways, so it can sometimes feel a bit inconsistent. Some functions, like `summary` automatically remove missing values and calculate results ignoring those values. Other functions, like `mean`, need to explicitly be told how to handle missing values. For `mean` to calculate the mean ignoring the missing values we need to an additional argument `na.rm=TRUE`, telling R to remove missing (NA) values.
+If there are any missing values, then by default these functions tell us that they cannot determine the value of the mean, min, max and median. 
+Unfortunately, in R different functions handle missing values in different ways, so it can sometimes feel a bit inconsistent. Some functions, like `summary` automatically remove missing values and calculate results ignoring those values. Other functions, like `mean`, need to explicitly be told how to handle missing values. For `mean` to calculate the mean ignoring the missing values we need to add an additional argument `na.rm=TRUE`, telling R to remove missing (NA) values.
 
 ```{r sum6, exercise=TRUE}
 mean(airquality$Ozone,na.rm=TRUE)
@@ -416,7 +434,7 @@ If we tried to use the mean function on the `Month` column, we would see some sl
 mean(airquality$Month)
 ```
 
-Here we see another example of a warning message - because the format of the month is not 'numeric' (a number) or 'logical' (a class for a binary column which can only have values of `TRUE` or `FALSE`), we see the mean of month is NA. There was no error in the code, but R is warning us that it thinks it is a bit strange that we want the mean of a 'factor' (categorical) column as it cannot do this. We have to think carefully about making sure we are asking R to do something sensible with the data we have, and whether our data is an appropriate format. For example if the months were coded as numbers (4 for April, 5 for May and so on) - then we could have calculated a mean value. Just because R lets you do something, doesn't mean this is necessarily something that is good, correct or useful to our actual analysis.
+Here we see another example of a warning message - because the format of the month is not 'numeric' (a number) or 'logical' (a class for a binary column which can only have values of `TRUE` or `FALSE`), we see the mean of month is NA. There was no error in the code, but R is warning us that it thinks it is a bit strange that we want the mean of a 'factor' (categorical) column as it cannot do this. We have to think carefully about making sure we are asking R to do something sensible with the data we have, and whether our data is stored an appropriate format. For example if the months were coded as numbers (4 for April, 5 for May and so on) - then we could have calculated a mean value. Just because R lets you do something, doesn't mean this is necessarily something that is good, correct or useful to our actual analysis.
 
 *Question* Predict what you would then expect to see from the following line of code before pressing run.
 
@@ -476,8 +494,6 @@ Chapters 1 & 2 were suggested as pre-course material, so also worth a review. We
 Hard:
 <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf" target="_blank">The 'official' Introduction to R </a>. This goes into a lot of technical detail about different object types, and internal structures within R. More or less everything that you might possibly need to know is covered in this, but lots of it you don't need to know or remember to start your journey into R whilst much of what is mentioned has largely been superseded with useful add on packages.
 
-## Exercises
-
 ## Quiz
 
 *Question 1*
@@ -499,7 +515,7 @@ question("Select all of the following which could be a valid object name for som
   answer("EarthquakeData",correct = TRUE),
    answer("earthquakedata",correct = TRUE),
   answer("Earthquake Data",message="No spaces allowed."),
-  answer("uRtHkWaKeS",correct = TRUE,message="Just because something is valid, does not mean it is a good idea!"),
+  answer("uRtHkWaKeS",correct = TRUE,message="Just because a name is valid, like uRtHkWaKeS, does not mean it is a good idea to name our data this!"),
   answer("2020earthquakes",message="Cannot start with a number."),
   answer("2020_earthquakes",message="Cannot start with a number"),
   answer("Earthquakes_2020",correct = TRUE),
@@ -524,7 +540,7 @@ question("Which of the following statements is correct",
 
 
 
-There is a dataset in built into R called `quakes`. This data shows the latitude, longitude, depth, magnitude of earthquakes occuring in the ocean around Fiji since 1964, as well as the number of different stations reporting the earthquake.
+There is a dataset within R called `quakes`. This data shows the latitude, longitude, depth, magnitude of earthquakes occurring in the ocean around Fiji since 1964, as well as the number of different stations reporting the earthquake.
 
 ```{r,echo=FALSE}
 DT::datatable(quakes)
